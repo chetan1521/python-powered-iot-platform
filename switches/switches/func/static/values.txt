@@ -1,0 +1,8 @@
+Status Of Switch1 is : OFF
+Status Of Switch2 is : OFF
+Status Of Switch1 is : ON
+Status Of Switch2 is : ON
+Status Of Switch1 is : OFF
+Status Of Switch2 is : OFF
+Status Of Switch1 is : ON
+Status Of Switch2 is : ON
