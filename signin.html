@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>SignIn</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+    </head>
+    
+    <style>
+        .new{
+            margin-bottom: 20px;
+            width: 300px; 
+            height:25px;
+            padding: 2px;
+            box-shadow: 1px 1px 8px black; 
+            font-size: 12px;
+        }
+        
+    </style>
+    
+    <body>
+        {% for message in messages %}
+       <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+       <strong>Message : </strong> {{message}}
+       <button type="button" class="close" data-dismiss="alert" aria-label="close">
+       <span aria-hidden="true">&times;</span>
+       </button>
+       </div>
+       {% endfor %}
+        <h3>Sign-In</h3>
+        <form actions="/signin" method="POST">
+        {% csrf_token %}
+            <label for="">Username : </label>
+            <input type="text" id="username" name="username" class="new" placeholder="Create a username(enter only letters and numbers)" required>
+            <br>
+
+            
+            <label for="">Password : </label>
+            <input type="password" id="pass1" name="pass1" class="new" placeholder="Confirm your password" required>
+            <br>
+
+            <button type="submit">Sign In</button>
+        </form>
+        <script src="" async defer></script>
+    </body>
+</html>
