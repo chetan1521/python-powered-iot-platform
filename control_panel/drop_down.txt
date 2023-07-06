@@ -1,0 +1,31 @@
+
+    <!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            .submit{
+                font-size: larger;
+            }
+        </style>
+    </head>
+<body>
+
+<h2>Control Panel</h2>
+
+<form  action="/action_page.php">
+  <label for="fname">Bulb</label><select name="switch1" id="membership2">
+    <option value="free">On</option>
+    <option value="bronze">Off</option></select><br>
+    <label for="fname">Bulb2</label><select name="switch2" id="membership1">
+        <option value="free">On</option>
+        <option value="bronze">Off</option></select><br>
+  <input  type="submit" value="Submit" class="submit">
+</form> 
+
+
+</body> 
+</html>
+
+
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title></title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="" />
+    <style>
+      .gauge-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .gauge {
+        position: relative;
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        background-color: #eee;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .gauge-arrow {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(-135deg);
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 15px 15px 0 0;
+        border-color: #f00 transparent transparent transparent;
+      }
+
+      .gauge-text {
+        position: absolute;
+        font-size: 32px;
+        font-weight: bold;
+      }
+
+      button {
+        background-color: #4caf50;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin-top: 20px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #3e8e41;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="gauge-container">
+      <div class="gauge">
+        <div class="gauge-arrow" id="gauge-arrow"></div>
+        <div class="gauge-text" id="gauge-text">0%</div>
+      </div>
+      <button onclick="updateGauge()">Update Gauge</button>
+    </div>
+
+    <script>
+      function updateGauge() {
+        const gaugeArrow = document.getElementById("gauge-arrow");
+        const gaugeText = document.getElementById("gauge-text");
+        const gaugeValue = Math.floor(Math.random() * 101); // Generate a random value between 0 and 100
+        const angle = -135 + (gaugeValue / 100) * 270; // Calculate the angle based on the value
+
+        gaugeArrow.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`; // Rotate the arrow
+        gaugeText.innerHTML = `${gaugeValue}%`; // Update the text
+      }
+    </script>
+  </body>
+</html>

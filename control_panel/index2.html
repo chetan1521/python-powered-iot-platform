@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Control Panel</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+    </head>
+    <body>
+        <form action="{% url 'panel' %}" method="POST">
+            {% csrf_token %}
+            
+        <label for="switch1">Switch S1 : </label>
+
+<select name="sw1" id="sw1">
+  
+  <option value="ON">ON</option>
+  <option value="OFF">OFF</option>
+</select>
+<br>
+<br>
+<br>
+
+        <label for="switch2">Switch S2 : </label>
+
+<select name="sw2" id="sw2">
+
+  <option value="ON">ON</option>
+  <option value="OFF">OFF</option>
+</select>
+<br>
+<br>
+        <input type="submit" value="apply">
+</form>
+        <script src="" async defer></script>
+    </body>
+</html>

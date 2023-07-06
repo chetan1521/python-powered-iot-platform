@@ -1,0 +1,120 @@
+@import url(https://fonts.googleapis.com/css?family=Lato:300,400,700);
+
+body {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  list-style: none;
+  overflow: hidden;
+  font-family: "Lato", Calibri, Arial, sans-serif;
+}
+
+#Container {
+  border: 1px solid #999;
+  margin: 20px;
+  -webkit-border-radius: 40px;
+  -moz-border-radius: 40px;
+  border-radius: 40px;
+  width: 300px;
+  background-color: #efefef;
+}
+
+#BelowText {
+  width: 100%;
+  margin-top: 30px;
+  border-top: 1px solid #999;
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 5px;
+  font-family: "Lato", Calibri, Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #444;
+  text-shadow: 1px 1px #bbb;
+}
+
+#SubBelowText {
+  width: 100%;
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 25px;
+  font-family: "Lato", Calibri, Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: #444;
+}
+
+/* Pie Chart */
+.progress-pie-chart {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background-color: #e5e5e5;
+  position: relative;
+  box-shadow: 1px 1px 7px #bbb;
+}
+
+.progress-pie-chart.gt-50 {
+  background-color: #81ce97;
+}
+
+.ppc-progress {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  left: calc(50% - 100px);
+  top: calc(50% - 100px);
+  width: 200px;
+  height: 200px;
+  clip: rect(0, 200px, 200px, 100px);
+}
+
+.ppc-progress .ppc-progress-fill {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  left: calc(50% - 100px);
+  top: calc(50% - 100px);
+  width: 200px;
+  height: 200px;
+  clip: rect(0, 100px, 200px, 0);
+  background: #81ce97;
+  transform: rotate(60deg);
+}
+
+.gt-50 .ppc-progress {
+  clip: rect(0, 100px, 200px, 0);
+}
+.gt-50 .ppc-progress .ppc-progress-fill {
+  clip: rect(0, 200px, 200px, 100px);
+  background: #777;
+}
+
+.ppc-percents {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  left: calc(50% - 173.91304px / 2);
+  top: calc(50% - 173.91304px / 2);
+  width: 173.91304px;
+  height: 173.91304px;
+  background-color: #efefef;
+  text-align: center;
+  display: table;
+}
+.ppc-percents span {
+  display: block;
+  font-size: 2.6em;
+  font-weight: bold;
+  color: #777;
+}
+
+.pcc-percents-wrapper {
+  display: table-cell;
+  vertical-align: middle;
+  text-shadow: 1px 1px #bbb;
+}
+
+.progress-pie-chart {
+  margin: 30px auto 0;
+}

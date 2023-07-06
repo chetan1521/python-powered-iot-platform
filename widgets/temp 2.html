@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Temperature Sensor Widget</title>
+	<style>
+		.temperature-display {
+	background: linear-gradient(to top, #ff0000 0%, #ffff00 50%, #00ff00 100%);
+	display: inline-block;
+	padding: 10px;
+	border-radius: 10px;
+}
+
+.temperature {
+	font-size: 40px;
+	font-weight: bold;
+	color: #ffffff;
+}
+
+.unit {
+	font-size: 24px;
+	font-weight: bold;
+	color: #ffffff;
+	margin-left: 10px;
+}
+
+	</style>
+</head>
+<body>
+	<div class="widget-container">
+		<div class="widget-container">
+            <div class="temperature-display">
+                <span class="temperature">25</span>
+                <span class="unit">C</span>
+            </div>
+        </div>
+        <script>
+            <script>
+				function GaugeWidget(element) {
+					this.element = element;
+					this.value = 0;
+				  
+					this.updateValue = function(value) {
+					  this.value = value;
+					  var width = (this.value / 100) * this.element.offsetWidth;
+					  var left = this.element.offsetWidth - width;
+					  this.element.style.left = left + "px";
+					};
+				  
+					this.start = function() {
+					  var interval = setInterval(this.updateValue.bind(this), 1000);
+					};
+				  }
+				  
+				  GaugeWidget.prototype.start();
+				  
+			</script>
+        
+	</div>
+</body>
+</html>

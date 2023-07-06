@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+        <style>
+            .led-container {
+  display: flex;
+  align-items: center;
+}
+
+.led {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: grey;
+  margin-right: 10px;
+}
+
+.led.on {
+  background-color: green;
+}
+
+        </style>
+    </head>
+    <body>
+        <div class="led-container">
+            <div class="led" id="led"></div>
+            <button onclick="toggleLed()">ON/OFF</button>
+          </div>
+          
+        
+        <script>
+            const led = document.getElementById("led");
+
+function toggleLed() {
+  led.classList.toggle("on");
+}
+
+        </script>
+    </body>
+</html>

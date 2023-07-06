@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Round Slider</title>
+</head>
+<body>
+ 
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/round-slider@1.6.1/dist/roundslider.min.css">
+<script src="https://cdn.jsdelivr.net/npm/round-slider@1.6.1/dist/roundslider.min.js"></script>
+<script src="https://cdn.plot.ly/plotly-2.12.1.min.js"></script>
+
+
+
+
+
+   <div class="col s12 m2 offset-m1">
+      <div class="row">
+         <h1>&nbsp;</h1>
+         <div class="center">
+         </div>
+      </div>
+
+      <div id="gate_voltage"></div>
+
+   </div>
+
+ 
+    
+
+
+
+   
+   <div id="mosfet_graph" style="width:600px;height:500px;"></div>
+   
+   
+   
+
+</body>
+<script>
+   var collector_i = document.getElementById("tspan2824");
+   var Vce_supply = document.getElementById("tspan109340");
+   var Vge_supply = document.getElementById("tspan9888");
+   var Vce = document.getElementById("tspan106410");
+   var Vge = document.getElementById("tspan101240");
+   var resistance = document.getElementsByName("tspan53643");
+
+   var Vge_slider = document.getElementsByName("gate_voltage");
+   var Vce_slider = document.getElementsByName("drain_voltage");
+
+   var table_btn = document.getElementById("table_data");
+   var plot_btn = document.getElementById("plot_btn");
+   var output = document.getElementById("output");
+   
+   
+   var data = [];
+   var x_data = [];
+   var y_data = [];
+
+   var output_data = [];
+   var output_x_data = [];
+   var output_y_data = [];
+   const v_threshold = 3;
+   const load_resistance = 100;
+
+
+   function plotting() {
+      // e.preventDefault();
+      Vge_s = Vge_slider[0].value;
+      Vce_s = Vce_slider[0].value;
+
+      if (output.checked) {
+
+         // output equation
+         if (Vce_s == 0 || Vge_s == 0) {
+            drain_current = 0;
+         }
+         else {
+            if (Vge_s < (v_threshold + 1)) {
+               if (Vce_s < Vge_s) {
+                  // drain_current = parseFloat((Vce_s/resistance)).toFixed(4);
+                  drain_current = (Vce_s / load_resistance);
+
+               }
+               else {
+                  // drain_current = parseFloat((Vge_s/resistance)).toFixed(4);
+                  drain_current = (Vge_s / load_resistance);
+
+               }
+            }
+            else {
+               // drain_current = parseFloat((Vce_s/resistance)).toFixed(4);
+               drain_current = (Vce_s / load_resistance);
+
+            }
+         }
+         Vce_volt = parseFloat(Vce_s).toFixed(4);
+         console.log(drain_current)
+         output_data.push([Vce_volt, drain_current]);
+         output_data.sort();
+         output_x_data = [];
+         output_y_data = [];
+         for (i = 0; i < output_data.length; i++) {
+            output_x_data.push(output_data[i][0]);
+            output_y_data.push(output_data[i][1]);
+         }
+         console.log(output_x_data);
+         console.log(output_y_data);
+         var layout = {
+            title: 'Output Characteristics',
+            xaxis: {
+               title: 'Vce in Volts',
+            },
+            yaxis: {
+               title: 'Collector current in mA',
+
+            }
+         };
+         TESTER = document.getElementById('mosfet_graph');
+         Plotly.newPlot(TESTER, [{
+            x: output_x_data,
+            y: output_y_data
+         }], layout, {
+            margin: { t: 0 }
+         });
+
+      }
+
+      else {
+         if (Vge_s < v_threshold || Vce_s == 0) {
+            drain_current = 0;
+            Vge_volt = parseFloat(Vge_s).toFixed(2);
+         }
+         else {
+            drain_current = ((parseFloat(Vge_s) - v_threshold) * (Vce_s / load_resistance)).toFixed(4);
+            Vge_volt = parseFloat(Vge_s).toFixed(4);
+         }
+
+         data.push([Vge_volt, drain_current]);
+         data.sort();
+         x_data = [];
+         y_data = [];
+         for (i = 0; i < data.length; i++) {
+            x_data.push(data[i][0]);
+            y_data.push(data[i][1]);
+         }
+         console.log(x_data);
+         console.log(y_data);
+         var layout = {
+            title: 'Input Characteristics',
+            xaxis: {
+               title: 'Vge in Volts',
+            },
+            yaxis: {
+               title: 'Collector current in mA',
+
+            }
+         };
+         TESTER = document.getElementById('mosfet_graph');
+         Plotly.newPlot(TESTER, [{
+            x: x_data,
+            y: y_data
+         }], layout, {
+            margin: { t: 0 }
+         });
+      }
+   }
+
+
+   $("#gate_voltage").roundSlider({
+      width: 22,
+      radius: 100,
+      value: 0,
+      circleShape: "half-top",
+      sliderType: "min-range",
+      lineCap: "square",
+      max: "8",
+      step: "0.1",
+      mouseScrollAction: true,
+      change: function (args) {
+         // handle the change event here
+         Vge_s = Vge_slider[0].value;
+         Vce_s = Vce_slider[0].value;
+         Vge_supply.innerHTML = parseFloat(Vge_s).toFixed(2);
+         Vge.innerHTML = parseFloat(Vge_s).toFixed(2);
+         Vce_supply.innerHTML = Vce_s;
+         Vce.innerHTML = Vce_s;
+
+         if (output.checked) {
+
+            // output equation
+            if (Vce_s == 0 || Vge_s == 0) {
+               drain_current = 0;
+            }
+            else {
+               if (Vge_s < (v_threshold + 1)) {
+                  if (Vce_s < Vge_s) {
+                     // drain_current = parseFloat((Vce_s/resistance)).toFixed(4);
+                     drain_current = (Vce_s / load_resistance);
+
+                  }
+                  else {
+                     // drain_current = parseFloat((Vge_s/resistance)).toFixed(4);
+                     drain_current = (Vge_s / load_resistance);
+
+                  }
+               }
+               else {
+                  // drain_current = parseFloat((Vce_s/resistance)).toFixed(4);
+                  drain_current = (Vce_s / load_resistance);
+
+               }
+            }
+         }
+         else {
+            if (Vge_s < v_threshold || Vce_s == 0) {
+               drain_current = 0;
+               Vge_volt = parseFloat(Vge_s).toFixed(2);
+            }
+            else {
+               drain_current = ((parseFloat(Vge_s) - v_threshold) * (Vce_s / load_resistance)).toFixed(4);
+               Vge_volt = parseFloat(Vge_s).toFixed(2);
+            }
+
+         }
+         collector_i.innerHTML = parseFloat(drain_current).toFixed(4);
+         Vge.innerHTML = Vge_volt;
+         Vce.innerHTML = Vce_s;
+         
+
+      }
+   });
+
+   $("#drain_voltage").roundSlider({
+      width: 22,
+      radius: 100,
+      value: 0,
+      circleShape: "half-top",
+      sliderType: "min-range",
+      lineCap: "square",
+      max: "20",
+      step: "0.5",
+      mouseScrollAction: true,
+      change: function (args) {
+         // handle the change event here
+         Vge_s = Vge_slider[0].value;
+         Vce_s = Vce_slider[0].value;
+         Vge_supply.innerHTML = parseFloat(Vge_s).toFixed(2);
+         Vce_supply.innerHTML = Vce_s;
+         Vge.innerHTML = Vge_volt;
+         Vce.innerHTML = Vce_s;
+
+         if (output.checked) {
+
+            // output equation
+            if (Vce_s == 0 || Vge_s == 0) {
+               drain_current = 0;
+            }
+            else {
+               if (Vge_s < (v_threshold + 1)) {
+                  if (Vce_s < Vge_s) {
+                     // drain_current = parseFloat((Vce_s/resistance)).toFixed(4);
+                     drain_current = (Vce_s / load_resistance);
+
+                  }
+                  else {
+                     // drain_current = parseFloat((Vge_s/resistance)).toFixed(4);
+                     drain_current = (Vge_s / load_resistance);
+
+                  }
+               }
+               else {
+                  // drain_current = parseFloat((Vce_s/resistance)).toFixed(4);
+                  drain_current = (Vce_s / load_resistance);
+
+               }
+            }
+         }
+         else {
+            if (Vge_s < v_threshold || Vce_s == 0) {
+               drain_current = 0;
+               Vge_volt = parseFloat(Vge_s).toFixed(2);
+            }
+            else {
+               drain_current = ((parseFloat(Vge_s) - v_threshold) * (Vce_s / load_resistance)).toFixed(3);
+               Vge_volt = parseFloat(Vge_s).toFixed(2);
+            }
+         }
+         Vge.innerHTML = Vge_volt;
+         collector_i.innerHTML = parseFloat(drain_current).toFixed(3);
+       
+         
+      }
+   });
+
+</script>
+
+
+
+<style>
+   .rs-control .rs-range-color {
+      background-color: #8954e0;
+   }
+
+   .rs-control .rs-path-color {
+      background-color: #dedcf2;
+   }
+
+   .rs-control .rs-handle {
+      background-color: #4d00a7;
+   }
+
+   .rs-control .rs-bg-color {
+      background-color: #ffffff;
+   }
+   
+</style>
+</body>
+</html>

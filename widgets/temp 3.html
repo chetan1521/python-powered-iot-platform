@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+        <style>
+            .temp-sensor-container {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 20px;
+  text-align: center;
+}
+
+.temp-readout {
+  font-size: 24px;
+  margin: 20px 0;
+}
+
+button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #3e8e41;
+}
+
+        </style>
+    </head>
+    <body>
+        <div class="temp-sensor-container">
+            <h3>Temperature Sensor</h3>
+            <div class="temp-readout">
+              <p>Current Temperature:</p>
+              <span id="temp-value">0</span> &deg;C
+            </div>
+            <button onclick="getTemp()">Get Temperature</button>
+          </div>
+          
+        <!-- <script>
+          function TemperatureSensorWidget(element) {
+            this.element = element;
+            this.temperature = 0;
+          
+            this.updateTemperature = function(temperature) {
+              this.temperature = temperature;
+              var text = this.temperature + "°C";
+              this.element.querySelector("#temperature").innerHTML = text;
+            };
+
+            this.start = function() {
+              var xhr = new XMLHttpRequest();
+              xhr.open("GET", "https://api.openweathermap.org/data/2.5/weather?q=London,uk&appid=YOUR_API_KEY");
+              xhr.onload = function() {
+                if (xhr.status === 200) {
+                  var data = JSON.parse(xhr.responseText);
+                  var temperature = data.main.temp;
+                  this.updateTemperature(temperature);
+                }
+              };
+              xhr.send();
+            };
+          }
+          
+          TemperatureSensorWidget.prototype.start();
+          
+
+        </script> -->
+
+
+
+        <script>
+          function TemperatureSensorWidget(element) {
+              this.element = element;
+              this.temperature = 0;
+            
+              this.updateTemperature = function(temperature) {
+                this.temperature = temperature;
+                var text = this.temperature + "°C";
+                this.element.querySelector("#temperature").innerHTML = text;
+              };
+            }
+            
+            TemperatureSensorWidget.prototype.start = function() {
+              var interval = setInterval(this.updateTemperature.bind(this), 1000);
+            };
+            
+            var widget = new TemperatureSensorWidget(document.getElementById("temp-sensor-container"));
+            widget.start();
+            
+        </script>
+
+
+
+    </body>
+</html>

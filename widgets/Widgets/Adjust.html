@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Widgets</title>
+    <style>
+      .column {
+        float: left;
+        width: 50%;
+      }
+
+      /* Clear floats after the columns */
+      .row:after {
+        content: "";
+        display: table;
+        clear: both;
+      }
+
+      /* switch1 css */
+      /* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: #2196f3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196f3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+/* Guage style */
+      .gauge-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .gauge {
+        position: relative;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background-color: #eee;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .gauge-arrow {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(-135deg);
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 15px 15px 0 0;
+        border-color: #f00 transparent transparent transparent;
+      }
+
+      .gauge-text {
+        position: absolute;
+        font-size: 32px;
+        font-weight: bold;
+      }
+
+      button {
+        background-color: #4caf50;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin-top: 20px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #3e8e41;
+      }
+
+      
+    </style>
+  </head>
+  <body>
+    <div class="row" style="background-color: #3e8e41;">
+      <div class="column">
+        <label class="switch">
+            <input type="checkbox" />
+            <span class="slider round"></span>
+      </div>
+      <div class="column">
+        <body>
+            <div class="gauge-container">
+              <div class="gauge">
+                <div class="gauge-arrow" id="gauge-arrow"></div>
+                <div class="gauge-text" id="gauge-text">0%</div>
+              </div>
+              <button onclick="updateGauge()">Update Gauge</button>
+            </div>
+        
+            <script>
+              function updateGauge() {
+                const gaugeArrow = document.getElementById("gauge-arrow");
+                const gaugeText = document.getElementById("gauge-text");
+                const gaugeValue = Math.floor(Math.random() * 101); // Generate a random value between 0 and 100
+                const angle = -135 + (gaugeValue / 100) * 270; // Calculate the angle based on the value
+        
+                gaugeArrow.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`; // Rotate the arrow
+                gaugeText.innerHTML = `${gaugeValue}%`; // Update the text
+              }
+            </script>
+      </div>
+    </div>
+    <!--  -->
+    <br>
+    
+    </div>
+  </body>
+</html>
