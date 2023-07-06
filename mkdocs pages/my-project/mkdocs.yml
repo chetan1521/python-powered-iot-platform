@@ -1,0 +1,7 @@
+site_name: IOT PLATFORM
+theme:
+  name: material
+  palette:
+    primary: blue
+
+    

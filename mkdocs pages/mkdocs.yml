@@ -1,0 +1,22 @@
+site_name: My Docs
+theme:
+  name: material
+  palette:
+    primary: green
+    
+  features:
+    - navigation.tabs
+    - navigation.top
+    - content.tabs.link
+
+
+extra_css:
+  - stylesheets/extra.css
+nav:
+    - Home: index.md
+    - About: about.md
+    - Contact: contact.md
+
+
+
+
